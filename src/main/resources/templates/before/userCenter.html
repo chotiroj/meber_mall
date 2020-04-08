@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>个人中心</title>
+<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+
+    <!--====== Pe Icon 7 Stroke css ======-->
+    <link rel="stylesheet" href="../assets/css/Pe-icon-7-stroke.css">
+
+    <!--====== Ion Icons css ======-->
+    <link rel="stylesheet" href="../assets/css/ionicons.min.css">
+
+    <!--====== Magnific Popup css ======-->
+    <link rel="stylesheet" href="../assets/css/magnific-popup.css">
+
+    <!--====== Slick css ======-->
+    <link rel="stylesheet" href="../assets/css/slick.css">
+
+    <!--====== Animate css ======-->
+    <link rel="stylesheet" href="../assets/css/animate.min.css">
+
+    <!--====== Nice Select css ======-->
+    <link rel="stylesheet" href="../assets/css/nice-select.css">
+
+    <!--====== Default css ======-->
+    <link rel="stylesheet" href="../assets/css/default.css">
+
+    <!--====== Style css ======-->
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+
+</head>
+
+<body>
+
+    <!--====== PRELOADER  PART START ======-->
+
+    <div id="preloader">
+        <div id="loader">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+    </div>
+    
+    
+		<div class="shopping-cart-wrapper">
+        <div class="shopping-cart-canvas">
+            <div class="shopping_cart" th:fragment="shopcart">
+                <div class="shopping_cart-top-bar d-flex justify-content-between">
+                    <h6>购物车</h6>
+                    <button class="shopping-cart-close">
+                        <i class="ion ion-md-add"></i>
+                    </button>
+                </div><!-- shopping cart top bar -->
+                <div class="shopping_cart-list-items mt-30" id="cartul" onmouseover="cartscroll()" onmouseout="carthidden()">
+                    <ul>
+                        <li th:each="c:${cartlist}">
+                            <div class="single-shopping-cart media">
+                                <div class="cart-image">
+                                    <img style="width:70px;height:70px;" th:src="@{'../images/'+${c.gspicture}}" alt="Cart">
+                                </div>
+                                <div class="cart-content media-body pl-15">
+                                    <h6><a href="#" th:text="${c.gsname}"></a></h6>
+                                    <span class="quality" th:text="'数量:&nbsp;&nbsp;'+${c.shopnum}"></span>
+                                    <span class="price" th:text="'¥'+${c.gsrprice}"></span>
+                                    <span class="price-close" th:text="'¥'+${c.gsrprice}"></span>
+                                    <a class="remove" href="#"><i class="fal fa-times"></i>移除</a>
+                                </div>
+                            </div> <!-- single shopping cart -->
+                        </li>
+                    </ul>
+                </div> <!-- shopping_cart list items -->
+                <div class="shopping_cart-btn">
+                    <div class="total pt-35 d-flex justify-content-between">
+                        <h5>总计:&nbsp;&nbsp;</h5>
+                        <p th:text="'¥'+${amount}"></p>
+                    </div>
+                    <div class="cart-btn pt-25">
+                        <a class="main-btn" href="#">清空购物车</a>
+                        <a class="main-btn main-btn-2" href="#">结算</a>
+                    </div>
+                </div>
+            </div> <!-- shopping_cart -->
+        </div>
+        <div class="overlay"></div>
+    </div>
+
+    <!--====== PRELOADER  PART ENDS ======-->
+
+    <!--====== HEADER  PART START ======-->
+
+    <header class="header-area">
+        <div class="navigation fixed-top">
+            <div class="container-fluid pl-60 pr-60">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <nav class="navbar navbar-expand-lg">
+                            <a class="navbar-brand" href="index">
+                                <img src="../assets/images/logo.png" alt="Logo">
+                            </a> <!-- Logo -->
+
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button> <!-- navbar-toggler -->
+
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul class="navbar-nav m-auto">
+                                    <li class="nav-item"><a href="index">商城首页</a></li>                           
+                                    <li class="nav-item"><!-- <a href="goodsnav">商品分类</a> --></li>
+                                    <li class="nav-item"><!-- <a href="goodsnav">商品分类</a> --></li>
+                                    <li class="nav-item"><!-- <a href="goodsnav">商品分类</a> --></li>
+                                    <li class="nav-item"><!-- <a href="goodsnav">商品分类</a> --></li>
+                                </ul>
+                            </div> <!-- navbar collapse -->
+                  			<div class="navbar-icon d-none d-sm-block">
+                  			<form class="form" action="search" method="post">
+                                <ul>                    
+                                    <li><input type="text" name="gsname" placeholder="请输入您要搜索的内容！"/><button><i class="pe-7s-search"></i></button></li>                             	                  
+                                	<li th:if="${session.user!=null}" style="margin-left:25px;font-size:14px;color:#8FC5FF;line-height:17px;" th:each="us:${session.user}" th:text="'欢迎'+'&nbsp;&nbsp;'+${us.username}"></li>
+                                	<li th:if="${session.user!=null}"><a href="exit" style="font-size:15px;">退出</a></li>
+                                	<li><a class="shopping-cart-open" href="#"><i class="pe-7s-cart"></i></a></li> 
+                                </ul>
+                              </form>
+                            </div>
+                  
+                        </nav> <!-- navbar -->
+                    </div>
+                </div> <!-- row -->
+            </div> <!-- container -->
+        </div> <!-- navigation -->
+    </header>
+
+    <!--====== HEADER  PART ENDS ======-->
+
+    <!--====== BANNER  PART START ======-->
+
+    <div class="banner-active">
+        
+       
+        <div class="banner-area d-flex align-items-center bg_cover" style="height:60px;background:#f1f7f7;">
+            <div class="container">
+                <div class="row justify-content-center">
+                </div> <!-- row -->
+            </div> <!-- container -->
+            
+        </div> <!-- banner area -->
+    </div>
+
+    <!--====== BANNER  PART ENDS ======-->
+
+<section class="product-area product-area-2">
+        <div class="container">
+            <div class="row align-items-center pt-65 pb-20">
+                <div class="col-lg-3 col-md-4">
+                    <div class="product-grid-tab d-flex">
+                        <span th:text="${totalnum}+'&nbsp;&nbsp;件商品'"></span>
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"><i class="ion ion-ios-keypad"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="ion ion-ios-list"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4 col-sm-6" th:each="order:${orderlist}">
+                            <div class="single-product mt-30 ordergoods1">
+                                <img th:src="@{'../images/'+${order.gspicture}}" alt="product">
+                                <a th:href="@{goodsdetail(id=${order.id})}">
+                                    <h6 class="title ordername" th:text="${order.gsname}"></h6>
+                                </a>
+                                <span th:text="'x'+${order.shopnum}"></span>
+                                <ul class="ordername">
+                                    <li th:text="'¥'+${order.gsrprice}"></li>
+                                    <li class="total" style="color:#999;" th:text="'小计:&nbsp;&nbsp;¥'+${order.smallcount}"></li>
+                                </ul>
+                            </div> <!-- single product -->
+                        </div>   
+                    </div> <!-- row -->
+                </div>
+                
+                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <div class="row justify-content-center ordergoods" th:each="order:${orderlist}">
+                        <div class="col-lg-3 col-md-3 col-sm-6">
+                            <div class="product-list-thumb mt-30">
+                                <img th:src="@{'../images/'+${order.gspicture}}" alt="product">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-8 col-sm-9">
+                            <div class="product-list-content mt-30">
+                                <h5 class="title" th:text="${order.gsname}"></h5>
+                                <span th:text="'¥'+${order.gsrprice}"></span><span class="title_float" style="color:#999;" th:text="'x'+${order.shopnum}"></span>
+                                <p>Tacimates sent ucius concludaturque, ea option maiestatis deterruisset sea. Mea dolores perfecto cu, ea dicat ocurreret posidonium quo. An veritus omnesque rationibus quo, ad populo pertinax cotidieque quo. </p>
+                                <a href="#">删除订单</a>
+                                <ul>
+                                    <li th:text="'小计:&nbsp;&nbsp;¥'+${order.smallcount}"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- container -->
+    </section>
+
+  
+
+
+
+
+    <!--====== SELLER PART START ======-->
+
+    <section class="seller-area pt-90 pb-55">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title text-center">
+                        <a href="#">
+                            <h3 class="title">我的足迹</h3>
+                        </a>
+                    </div> <!-- section title -->
+                </div>
+            </div>
+            <div class="row seller-active">
+                <div class="col-lg-3" th:each="ft:${footlist}">
+                    <div class="single-seller mt-30">
+                        <img th:src="@{'../images/'+${ft.gspicture}}" alt="">
+                        <a th:href="@{goodsdetail(id=${ft.id})}">
+                            <h5 class="title" th:text="${ft.gsname}"></h5>
+                        </a>
+                        <ul>
+                            <li th:text="'¥'+${ft.gsrprice}"></li>
+                            <li class="item-2" th:text="'¥'+${ft.gsprice}"></li>
+                        </ul>
+                    </div> <!-- single seller -->
+                </div> 
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+
+    <!--====== SELLER PART ENDS ======-->
+
+
+    <!--====== FOOTER PART START ======-->
+
+    <section class="footer-area gray-bg pb-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-5">
+                    <div class="footer-item-1 mt-30">
+                        <a href="index"><img src="../assets/images/logo-2.png" alt="logo"></a>
+                        <span>Copyright &copy; 2019.Company name All rights reserved.<a target="_blank" href="#">Wai</a></span>
+                        <ul>
+                            <li><a href="#">品质保障</a></li>
+                            <li><a href="#">消费保障</a></li>
+                            <li><a href="#">关于我们</a></li>
+                        </ul>
+                        <div class="footer-info">
+                            <ul>
+                                <li><i class="ion ion-md-pin"></i> 广东白云学院 <br> </li>
+                                <li><i class="ion ion-ios-mail"></i>13046101373@163.com</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 offset-lg-2 col-md-2 col-sm-4">
+                    <div class="footer-social mt-30">
+                        <h5 class="title">社交联系</h5>
+                        <ul>
+                            <li><a href="#">QQ</a></li>
+                            <li><a href="#">WeChat</a></li>
+                            <li><a href="#">照片墙</a></li>
+                            <li><a href="#">微博</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-5 col-sm-8">
+                    <div class="footer-item-2 mt-30">
+                        <h5 class="title">简讯</h5>
+                        <form action="#">
+                            <div class="input-box mt-25">
+                                <input type="email" placeholder="您的邮箱">
+                            </div>
+                            <div class="input-box mt-25">
+                                <button class="main-btn">提交 <i class="ion ion-ios-send"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--====== FOOTER PART ENDS ======-->
+
+    <!--====== BACK TO TOP ======-->
+    <div class="back-to-top">
+        <a href="">
+            <i class="ion ion-md-arrow-up"></i>
+        </a>
+    </div>
+    <!--====== BACK TO TOP ======-->
+
+
+
+    <!--====== jquery js ======-->
+    <script src="../assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="../assets/js/vendor/jquery-1.12.4.min.js"></script>
+
+    <!--====== Bootstrap js ======-->
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/popper.min.js"></script>
+
+    <!--====== Slick js ======-->
+    <script src="../assets/js/slick.min.js"></script>
+
+    <!--====== Isotope js ======-->
+    <script src="../assets/js/isotope.pkgd.min.js"></script>
+
+    <!--====== Images Loaded js ======-->
+    <script src="../assets/js/imagesloaded.pkgd.min.js"></script>
+
+    <!--====== Magnific Popup js ======-->
+    <script src="../assets/js/jquery.magnific-popup.min.js"></script>
+
+    <!--====== Nice Select js ======-->
+    <script src="../assets/js/jquery.nice-select.min.js"></script>
+
+    <!--====== Ajax Contact js ======-->
+    <script src="../assets/js/ajax-contact.js"></script>
+
+    <!--====== Main js ======-->
+    <script src="../assets/js/main.js"></script>
+    
+    <!-- 局部刷新购物车数据 -->
+    <script type="text/javascript">
+    	$('.shopping-cart-open').click(function () {
+			$.ajax({
+				url:'selectCart',
+				type:'POST',
+				success:function(data){
+					$('.shopping_cart').html(data);
+				}
+			})
+		});
+		
+		function cartscroll() {
+			document.getElementById('cartul').style.overflowY='scroll';
+		};
+    	function carthidden() {
+			document.getElementById('cartul').style.overflowY='hidden';
+		};
+    	
+    	function addorder() {
+    		if(window.confirm("是否提交订单？")){
+    			return true;
+    		}
+    		else{
+    			return false;
+    		}
+		};
+    	function clearCart() {
+    		if(window.confirm("是否清空购物车？")){
+    			return true;
+    		}
+    		else{
+    			return false;
+    		}
+		}
+    </script>
+</body>
+</html>

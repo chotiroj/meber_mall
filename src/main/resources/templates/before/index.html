@@ -1,0 +1,684 @@
+﻿<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <!--====== Required meta tags ======-->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--====== Title ======-->
+    <title>商城首页</title>
+
+    <!--====== Bootstrap css ======-->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+
+    <!--====== Pe Icon 7 Stroke css ======-->
+    <link rel="stylesheet" href="../assets/css/Pe-icon-7-stroke.css">
+
+    <!--====== Ion Icons css ======-->
+    <link rel="stylesheet" href="../assets/css/ionicons.min.css">
+
+    <!--====== Magnific Popup css ======-->
+    <link rel="stylesheet" href="../assets/css/magnific-popup.css">
+
+    <!--====== Slick css ======-->
+    <link rel="stylesheet" href="../assets/css/slick.css">
+
+    <!--====== Animate css ======-->
+    <link rel="stylesheet" href="../assets/css/animate.min.css">
+
+    <!--====== Nice Select css ======-->
+    <link rel="stylesheet" href="../assets/css/nice-select.css">
+
+    <!--====== Default css ======-->
+    <link rel="stylesheet" href="../assets/css/default.css">
+
+    <!--====== Style css ======-->
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+
+</head>
+
+<body>
+
+    <!--====== PRELOADER  PART START ======-->
+
+    <div id="preloader">
+        <div id="loader">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+    </div>
+
+    <!--====== PRELOADER  PART ENDS ======-->
+
+    <!--====== SEARCH PART START ======-->
+
+    <div class="search-box">
+        <div class="search-header">
+            <div class="container mt-60">
+                <div class="row">
+                    <div class="col-6">
+                        <h5 class="search-title">搜索 </h5> <!-- search title -->
+                    </div>
+                    <div class="col-6">
+                        <div class="search-close text-right">
+                            <button class="search-close-btn">关闭  <span></span><span></span></button>
+                        </div> <!-- search close -->
+                    </div>
+                </div> <!-- row -->
+            </div> <!-- container -->
+        </div> <!-- search header -->
+        <div class="search-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="search-form">
+                            <form action="search" method="post">
+                                <input type="text" name="gsname" placeholder="请输入搜索的商品">
+                                <button><i class="pe-7s-search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div> <!-- row -->
+            </div> <!-- container -->
+        </div> <!-- search body -->
+    </div>
+
+    <!--====== SEARCH PART ENDS ======-->
+
+    <!--====== SHOPPING CART PART START ======-->
+    
+    <div class="shopping-cart-wrapper">
+        <div class="shopping-cart-canvas">
+            <div class="shopping_cart" th:fragment="shopcart">
+                <div class="shopping_cart-top-bar d-flex justify-content-between">
+                    <h6>购物车</h6>
+                    <button class="shopping-cart-close">
+                        <i class="ion ion-md-add"></i>
+                    </button>
+                </div><!-- shopping cart top bar -->
+                <div class="shopping_cart-list-items mt-30" id="cartul" onmouseover="cartscroll()" onmouseout="carthidden()">
+                    <ul>
+                        <li th:each="c:${cartlist}">
+                            <div class="single-shopping-cart media">
+                                <div class="cart-image">
+                                    <img style="width:70px;height:70px;" th:src="@{'../images/'+${c.gspicture}}" alt="Cart">
+                                </div>
+                                <div class="cart-content media-body pl-15">
+                                    <h6><a href="#" th:text="${c.gsname}"></a></h6>
+                                    <span class="quality" th:text="'数量:&nbsp;&nbsp;'+${c.shopnum}"></span>
+                                    <span class="price" th:text="'¥'+${c.gsrprice}"></span>
+                                    <span class="price-close" th:text="'¥'+${c.gsrprice}"></span>
+                                    <a class="remove" th:href="@{deleteAgoods(goods_id=${c.id})}"><i class="fal fa-times"></i>移除</a>
+                                </div>
+                            </div> <!-- single shopping cart -->
+                        </li>
+                    </ul>
+                </div> <!-- shopping_cart list items -->
+                <div class="shopping_cart-btn">
+                    <div class="total pt-35 d-flex justify-content-between">
+                        <h5>总计:&nbsp;&nbsp;</h5>
+                        <p th:text="'¥'+${amount}"></p>
+                    </div>
+                    <div class="cart-btn pt-25">
+                    	<a th:if="${cartlist.size()==0}" class="main-btn" href="#">清空购物车</a>
+                    	<a th:if="${cartlist.size()==0}" class="main-btn main-btn-2" href="#">结算</a>
+                        <a th:if="${cartlist.size()!=0}" class="main-btn" onclick="return clearCart();" th:href="@{clearCart}">清空购物车</a>
+                        <a th:if="${cartlist.size()!=0}" class="main-btn main-btn-2" onclick="return addorder();" th:href="@{addorder(amount=${amount})}">结算</a>
+                    </div>
+                </div>
+            </div> <!-- shopping_cart -->
+        </div>
+        <div class="overlay"></div>
+    </div>
+    
+    <!--====== SHOPPING CART PART ENDS ======-->
+
+    <!--====== HEADER  PART START ======-->
+
+    <header class="header-area">
+        <div class="navigation fixed-top">
+            <div class="container-fluid pl-60 pr-60">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <nav class="navbar navbar-expand-lg">
+                            <a class="navbar-brand" href="index">
+                                <img src="../assets/images/logo.png" alt="Logo">
+                            </a> <!-- Logo -->
+
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button> <!-- navbar-toggler -->
+
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul class="navbar-nav m-auto">
+                                    <li class="nav-item"><a href="index">商城首页</a></li>                           
+                                    <li class="nav-item"><a href="goodsnav">商品分类</a></li>
+                                    <li class="nav-item" th:if="${session.user!=null}"><a href="touserCenter">个人中心</a></li>
+                                    <li class="nav-item"><a class="page-scroll" href="about-us">关于我们</a></li>
+                                    <li class="nav-item"><a class="page-scroll" href="contact-us">联系我们</a></li>
+                                </ul>
+                            </div> <!-- navbar collapse -->
+                            <div class="navbar-icon d-none d-sm-block">
+                                <ul th:if="${session.user==null}">
+                                	<li class="logandregi"><a style="font-size:14px;color:#eee;line-height:17px;" href="tologin">登陆</a></li>
+                                	<li class="logandregi"><a style="font-size:14px;color:#eee;line-height:17px;" href="toregister">免费注册</a></li>
+                                    <li><a class="search-open" href="#"><i class="pe-7s-search"></i></a></li>
+                                    <li><a class="shopping-cart-open" href="#"><i class="pe-7s-cart"></i></a></li>
+                                </ul>
+                                <ul th:if="${session.user!=null}">                    
+                                	<li style="font-size:14px;color:#8FC5FF;line-height:17px;" th:each="us:${session.user}" th:text="'欢迎'+'&nbsp;&nbsp;'+${us.username}"></li>
+                                	<li><a href="exit" style="font-size:15px;">退出</a></li>
+                                	<li><a class="search-open" href="#"><i class="pe-7s-search"></i></a></li>
+                                    <li><a class="shopping-cart-open" href="#"><i class="pe-7s-cart"></i></a></li>
+                                </ul>
+                            </div>
+                        </nav> <!-- navbar -->
+                    </div>
+                </div> <!-- row -->
+            </div> <!-- container -->
+        </div> <!-- navigation -->
+    </header>
+
+    <!--====== HEADER  PART ENDS ======-->
+
+    <!--====== BANNER  PART START ======-->
+
+    <div class="banner-active">
+        <div class="banner-area d-flex align-items-center bg_cover" style="background-image: url(../assets/images/banner-bg.jpg);">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="banner-content text-center">
+                            <h1 data-animation="fadeInUp" data-delay="0.5s" class="title">Ha Food</h1>
+                            <a data-animation="fadeInUp" data-delay="1.2s" class="main-btn" href="goodsdetail">马上购买</a>
+                        </div>
+                    </div>
+                </div> <!-- row -->
+            </div> <!-- container -->
+            <div class="banner-shape">
+                <img src="../assets/images/banner-shape.png" alt="shape">
+            </div>
+        </div> <!-- banner area -->
+        <div class="banner-area d-flex align-items-center bg_cover" style="background-image: url(../assets/images/banner-bg-2.jpg);">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="banner-content text-center">
+                            <h1 data-animation="fadeInUp" data-delay="0.5s" class="title">Ha Food</h1>
+                            <a data-animation="fadeInUp" data-delay="1.2s" class="main-btn" href="goodsdetail">马上购买</a>
+                        </div>
+                    </div>
+                </div> <!-- row -->
+            </div> <!-- container -->
+            <div class="banner-shape">
+                <img src="../assets/images/banner-shape.png" alt="shape">
+            </div>
+        </div> <!-- banner area -->
+        <div class="banner-area d-flex align-items-center bg_cover" style="background-image: url(../assets/images/banner-bg-3.jpg);">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="banner-content text-center">
+                            <h1 data-animation="fadeInUp" data-delay="0.5s" class="title">Ha Food</h1>
+                            <a data-animation="fadeInUp" data-delay="1.2s" class="main-btn" href="goodsdetail">马上购买</a>
+                        </div>
+                    </div>
+                </div> <!-- row -->
+            </div> <!-- container -->
+            <div class="banner-shape">
+                <img src="../assets/images/banner-shape.png" alt="shape">
+            </div>
+        </div> <!-- banner area -->
+    </div>
+
+    <!--====== BANNER  PART ENDS ======-->
+
+    <!--====== SUB PRODUCT PART START ======-->
+
+    <div class="sub-product-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="sub-product d-flex justify-content-between">
+                        <div th:each="tp,interStat:${goodstype}" class="sub-product-item text-center "th:classappend="${interStat.index%2}==0?'mt-30':'mt-60'">
+                            <img th:src="@{'../assets/images/sub-'+${interStat.index+1}+'.jpg'}" alt="Eggs"><br>
+                            <a th:href="@{index(id=${tp.id})}"><span th:text="${tp.typename}"></span></a>
+                        </div> 
+                    </div>
+                </div> <!-- row -->
+            </div> <!-- container -->
+        </div>
+    </div>
+
+    <!--====== SUB PRODUCT PART ENDS ======-->
+
+    <!--====== PRODUCT  PART START ======-->
+
+    <section class="product-area area-padding">
+       <div class="container">
+            <div class="row">
+                <div th:each="gs:${goodslist}" class="col-lg-2 col-md-4 col-sm-6">
+                    <div class="single-product mt-30">
+                        <img th:src="@{'../images/'+${gs.gspicture}}" alt="product">
+                        <a th:href="@{goodsdetail(id=${gs.id})}">
+                            <h6 class="title" th:text="${gs.gsname}"></h6>
+                        </a>
+                        <ul>
+                            <li th:text="'¥'+${gs.gsrprice}"></li>
+                            <li class="item-2" th:text="'¥'+${gs.gsprice}"></li>
+                        </ul>
+                    </div> 
+                </div>        
+            </div>
+        </div> 
+    </section>
+
+    <!--====== PRODUCT  PART ENDS ======-->
+
+    <!--====== PLAY PART START ======-->
+
+    <section class="play-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="play-item">
+                        <div class="play-title pb-25">
+                            <h3 class="title">100% 天然农场商品</h3>
+                            <p>它不仅存活了五个世纪，而且还经历了电子排版的飞跃，基本上保持不变</p>
+                        </div>
+                        <div class="play-thumb mt-30">
+                            <img src="../assets/images/play-thumb.png" alt="">
+                            <a class="video-popup" href="#"><i class="icon ion-md-play"></i></a>
+                        </div>
+                    </div> <!-- play item -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+
+    <!--====== PLAY PART ENDS ======-->
+
+    <!--====== BRAND PART START ======-->
+
+    <div class="brand-area">
+        <div class="container">
+            <div class="row brand-active">
+                <div class="col-lg-3">
+                    <div class="brand-item">
+                        <img src="../assets/images/brand-1.png" alt="">
+                    </div> <!-- brand item -->
+                </div>
+                <div class="col-lg-3">
+                    <div class="brand-item">
+                        <img src="../assets/images/brand-2.png" alt="">
+                    </div> <!-- brand item -->
+                </div>
+                <div class="col-lg-3">
+                    <div class="brand-item">
+                        <img src="../assets/images/brand-3.png" alt="">
+                    </div> <!-- brand item -->
+                </div>
+                <div class="col-lg-3">
+                    <div class="brand-item">
+                        <img src="../assets/images/brand-4.png" alt="">
+                    </div> <!-- brand item -->
+                </div>
+                <div class="col-lg-3">
+                    <div class="brand-item">
+                        <img src="../assets/images/brand-5.png" alt="">
+                    </div> <!-- brand item -->
+                </div>
+                <div class="col-lg-3">
+                    <div class="brand-item">
+                        <img src="../assets/images/brand-5.png" alt="">
+                    </div> <!-- brand item -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </div>
+
+    <!--====== BRAND PART ENDS ======-->
+
+    <!--====== SELLER PART START ======-->
+
+    <section class="seller-area pt-90 pb-55">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title text-center">
+                        <a href="#">
+                            <h3 class="title">畅销商品</h3>
+                        </a>
+                    </div> <!-- section title -->
+                </div>
+            </div>
+            <div class="row seller-active">
+                <div class="col-lg-3" th:each="sa:${sale}">
+                    <div class="single-seller mt-30">
+                        <img th:src="@{'../images/'+${sa.gspicture}}" alt="">
+                        <a th:href="@{goodsdetail(id=${sa.id})}">
+                            <h5 class="title" th:text="${sa.gsname}"></h5>
+                        </a>
+                        <ul>
+                            <li th:text="'¥'+${sa.gsrprice}"></li>
+                            <li class="item-2" th:text="'¥'+${sa.gsprice}"></li>
+                        </ul>
+                    </div> <!-- single seller -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+
+    <!--====== SELLER PART ENDS ======-->
+
+    <!--====== DISCOUNT PART START ======-->
+
+    <section class="discount-area pb-90">
+        <div class="container-fluid p-0">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="discount-item bg_cover mt-30" style="background-image: url(../assets/images/discount-bg-1.jpg);">
+                        <span>100% 纯天然 </span>
+                        <h2 class="title">农场商品</h2>
+                        <a class="main-btn main-btn-2" href="goodsdetail">马上购买</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="discount-item bg_cover mt-30" style="background-image: url(../assets/images/discount-bg-2.jpg);">
+                        <span>折扣</span>
+                        <h2 class="title">额外20％折扣 </h2>
+                        <a class="main-btn main-btn-2" href="goodsdetail">马上购买</a>
+                    </div>
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container fluid -->
+    </section>
+
+    <!--====== DISCOUNT PART ENDS ======-->
+
+    <!--====== CUSTOMER PART START ======-->
+
+    <!-- <div class="customer-area">
+        <div class="container">
+            <div class="row customer-active">
+                <div class="col-lg-6">
+                    <div class="customer-item">
+                        <img src="../assets/images/customer-1.png" alt="customer">
+                        <span><b>Adam</b> / Designer</span>
+                        <p>“ Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea comodo conequat ”</p>
+                    </div> customer item
+                </div>
+                <div class="col-lg-6">
+                    <div class="customer-item">
+                        <img src="../assets/images/customer-2.png" alt="customer">
+                        <span><b>Maddie Fletcher</b> / Customer</span>
+                        <p>“ Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea comodo conequat ”</p>
+                    </div> customer item
+                </div>
+                <div class="col-lg-6">
+                    <div class="customer-item">
+                        <img src="../assets/images/customer-1.png" alt="customer">
+                        <span><b>Adam</b> / Designer</span>
+                        <p>“ Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea comodo conequat ”</p>
+                    </div> customer item
+                </div>
+            </div> row
+        </div> container
+    </div> -->
+
+    <!--====== CUSTOMER PART ENDS ======-->
+
+    <!--====== LATEST NEWS PART START ======-->
+
+    <section class="latest-news-area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section-title text-center">
+                        <h3 class="title">最新活动</h3>
+                        <p>每日上新，更多商品推荐，商品多多，优惠多多！欢迎您的购买。。。</p>
+                    </div> <!-- section title -->
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-4 col-sm-8">
+                    <div class="latest-news-item mt-125">
+                        <img src="../assets/images/latest-news-1.jpg" alt="latest news">
+                        <span>美食</span>
+                        <a href="blog-details.html">
+                            <h5 class="title">简单的烹饪技巧，化作一道美食</h5>
+                        </a>
+                    </div> <!-- latest news item -->
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-8">
+                    <div class="latest-news-item mt-30">
+                        <img src="../assets/images/latest-news-2.jpg" alt="latest news">
+                        <span>植物</span>
+                        <a href="blog-details.html">
+                            <h5 class="title">纯天然绿色植物</h5>
+                        </a>
+                    </div> <!-- latest news item -->
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-8">
+                    <div class="latest-news-item mt-125">
+                        <img src="../assets/images/latest-news-3.jpg" alt="latest news">
+                        <span>茶饮</span>
+                        <a href="blog-details.html">
+                            <h5 class="title">夏日清凉饮品，整个夏日清新凉爽</h5>
+                        </a>
+                    </div> <!-- latest news item -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="latest-news-link text-center">
+                        <a href="#">查看更多</a>
+                    </div> <!-- latest news link -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+
+    <!--====== LATEST NEWS PART ENDS ======-->
+
+    <!--====== INSTAGRAM PART START ======-->
+
+    <div class="instagram-area">
+        <div class="container-fluid pl-60 pr-60">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="instagram-item d-flex">
+                        <div class="single-instagram">
+                            <img src="../assets/images/instagram-1.jpg" alt="instagram">
+                            <div class="instagram-overlay">
+                                <a href="#"><i class="ion ion-logo-instagram"></i></a>
+                            </div>
+                        </div> <!-- single instagram -->
+                        <div class="single-instagram">
+                            <img src="../assets/images/instagram-2.jpg" alt="instagram">
+                            <div class="instagram-overlay">
+                                <a href="#"><i class="ion ion-logo-instagram"></i></a>
+                            </div>
+                        </div> <!-- single instagram -->
+                        <div class="single-instagram">
+                            <img src="../assets/images/instagram-3.jpg" alt="instagram">
+                            <div class="instagram-overlay">
+                                <a href="#"><i class="ion ion-logo-instagram"></i></a>
+                            </div>
+                        </div> <!-- single instagram -->
+                        <div class="single-instagram d-none d-sm-inline-block">
+                            <img src="../assets/images/instagram-4.jpg" alt="instagram">
+                            <div class="instagram-overlay">
+                                <a href="#"><i class="ion ion-logo-instagram"></i></a>
+                            </div>
+                        </div> <!-- single instagram -->
+                        <div class="single-instagram d-none d-md-inline-block">
+                            <img src="../assets/images/instagram-5.jpg" alt="instagram">
+                            <div class="instagram-overlay">
+                                <a href="#"><i class="ion ion-logo-instagram"></i></a>
+                            </div>
+                        </div> <!-- single instagram -->
+                        <div class="single-instagram d-none d-md-inline-block">
+                            <img src="../assets/images/instagram-6.jpg" alt="instagram">
+                            <div class="instagram-overlay">
+                                <a href="#"><i class="ion ion-logo-instagram"></i></a>
+                            </div>
+                        </div> <!-- single instagram -->
+                        <div class="single-instagram d-none d-lg-inline-block">
+                            <img src="../assets/images/instagram-7.jpg" alt="instagram">
+                            <div class="instagram-overlay">
+                                <a href="#"><i class="ion ion-logo-instagram"></i></a>
+                            </div>
+                        </div> <!-- single instagram -->
+                        <div class="single-instagram d-none d-lg-inline-block">
+                            <img src="../assets/images/instagram-8.jpg" alt="instagram">
+                            <div class="instagram-overlay">
+                                <a href="#"><i class="ion ion-logo-instagram"></i></a>
+                            </div>
+                        </div> <!-- single instagram -->
+                    </div>
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container fluid -->
+        <span># hafood</span>
+    </div>
+
+    <!--====== INSTAGRAM PART ENDS ======-->
+
+    <!--====== FOOTER PART START ======-->
+
+    <section class="footer-area gray-bg pb-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-5">
+                    <div class="footer-item-1 mt-30">
+                        <a href="index"><img src="../assets/images/logo-2.png" alt="logo"></a>
+                        <span>Copyright &copy; 2019.Company name All rights reserved.<a target="_blank" href="#">Wai</a></span>
+                        <ul>
+                            <li><a href="#">品质保障</a></li>
+                            <li><a href="#">消费保障</a></li>
+                            <li><a href="#">关于我们</a></li>
+                        </ul>
+                        <div class="footer-info">
+                            <ul>
+                                <li><i class="ion ion-md-pin"></i> 广东白云学院 <br> </li>
+                                <li><i class="ion ion-ios-mail"></i>13046101373@163.com</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 offset-lg-2 col-md-2 col-sm-4">
+                    <div class="footer-social mt-30">
+                        <h5 class="title">社交联系</h5>
+                        <ul>
+                            <li><a href="#">QQ</a></li>
+                            <li><a href="#">WeChat</a></li>
+                            <li><a href="#">照片墙</a></li>
+                            <li><a href="#">微博</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-5 col-sm-8">
+                    <div class="footer-item-2 mt-30">
+                        <h5 class="title">简讯</h5>
+                        <form action="#">
+                            <div class="input-box mt-25">
+                                <input type="email" placeholder="您的邮箱">
+                            </div>
+                            <div class="input-box mt-25">
+                                <button class="main-btn">提交 <i class="ion ion-ios-send"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--====== FOOTER PART ENDS ======-->
+
+    <!--====== BACK TO TOP ======-->
+    <div class="back-to-top">
+        <a href="">
+            <i class="ion ion-md-arrow-up"></i>
+        </a>
+    </div>
+    <!--====== BACK TO TOP ======-->
+
+
+
+    <!--====== jquery js ======-->
+    <script src="../assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="../assets/js/vendor/jquery-1.12.4.min.js"></script>
+
+    <!--====== Bootstrap js ======-->
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/popper.min.js"></script>
+
+    <!--====== Slick js ======-->
+    <script src="../assets/js/slick.min.js"></script>
+
+    <!--====== Isotope js ======-->
+    <script src="../assets/js/isotope.pkgd.min.js"></script>
+
+    <!--====== Images Loaded js ======-->
+    <script src="../assets/js/imagesloaded.pkgd.min.js"></script>
+
+    <!--====== Magnific Popup js ======-->
+    <script src="../assets/js/jquery.magnific-popup.min.js"></script>
+
+    <!--====== Nice Select js ======-->
+    <script src="../assets/js/jquery.nice-select.min.js"></script>
+
+    <!--====== Ajax Contact js ======-->
+    <script src="../assets/js/ajax-contact.js"></script>
+
+    <!--====== Main js ======-->
+    <script src="../assets/js/main.js"></script>
+    
+    <!-- 局部刷新购物车数据 -->
+    <script type="text/javascript">
+    	$('.shopping-cart-open').click(function () {
+			$.ajax({
+				url:'selectCart',
+				type:'POST',
+				success:function(data){
+					$('.shopping_cart').html(data);
+				}
+			})
+		});
+		
+		function cartscroll() {
+			document.getElementById('cartul').style.overflowY='scroll';
+		};
+    	function carthidden() {
+			document.getElementById('cartul').style.overflowY='hidden';
+		};
+    	
+    	function addorder() {
+    		if(window.confirm("是否提交订单？")){
+    			return true;
+    		}
+    		else{
+    			return false;
+    		}
+		};
+    	function clearCart() {
+    		if(window.confirm("是否清空购物车？")){
+    			return true;
+    		}
+    		else{
+    			return false;
+    		}
+		}
+    </script>
+</body>
+
+</html>
+

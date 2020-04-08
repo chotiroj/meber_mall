@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>用户登录</title>
+<!--====== Bootstrap css ======-->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+</head>
+<body>
+<div style="background:#8FC5FF;padding:145px 0;">
+<form action="login" name="form" class="form-horizontal col-sm-5" th:object="${user}" style="margin:0 auto;border-radius:10px;padding-top:30px;padding-bottom:70px;background:#BFDEFF;">
+<div class="form-group">
+<label class="col-sm-2 control-label" style="margin-left:5px;">用户名:</label>
+<div class="col-sm-12">
+<input type="text" class="form-control" name="username" placeholder="请输入您的用户名！"/>
+</div>
+</div>
+<div class="form-group">
+<label class="col-sm-2 control-label" style="margin-left:5px;">密码:</label>
+<div class="col-sm-12">
+<input type="password" class="form-control" name="password" placeholder="请输入您的登录密码！"/>
+</div>
+</div>
+<div class="form-group">
+<div class="col-sm-offest-2 col-sm-7">
+<input type="button" onclick="login();" class="btn btn-default" style="background:#8FC5FF;color:#fff;" value="登录"/>
+<input type="reset" class="btn btn-default" style="background:#8FC5FF;color:#fff;margin-left:20px;" value="取消"/>
+</div>
+</div>
+<div class="form-group">
+<span th:if="${session.msg!=null}" style="margin-left:20px;color:red;" th:text="${session.msg}"></span>
+<span th:if="${session.msg==null}" style="margin-left:20px;color:red;" th:text="${msg}"></span>
+</div>
+</form>
+</div>
+        <!--====== Bootstrap js ======-->
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    function login() {
+		var username=document.form.username.value;
+		var password=document.form.password.value;
+		if(username==""||password==""){
+			alert("用户名或密码不可为空！");
+		}
+		else{
+			document.form.submit();
+		}
+	}
+    </script>
+</body>
+</html>

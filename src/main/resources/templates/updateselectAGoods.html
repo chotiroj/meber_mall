@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>addGoods</title>
+<link href="../main.css" rel="stylesheet" type="text/css"/> 
+</head>
+<body>
+<form action="updateAgoods" class="main_form" method="post" th:object="${goods}" enctype="multipart/form-data">
+<span th:each="g:${list}">
+<input type="hidden" name="id" th:value="${g.id}">
+<label class="laber1">名称</label><input type="text" name="gsname" th:value="${g.gsname}"/>
+<label class="laber1">价格</label><input type="text" name="gsprice" th:value="${g.gsprice}"/>
+<label class="laber1">库存</label><input type="text" name="gsstore" th:value="${g.gsstore}"/>
+<label class="laber3">折扣价</label><input type="text"name="gsrprice" th:value="${g.gsrprice}"/>
+<label class="laber2">活动名称</label><input type="text" name="gsactive" th:value="${g.gsactive}"/>
+<label class="laber2">活动介绍</label><input type="text" name="activedetail" th:value="${g.activedetail}"/>
+<label class="laber1">类型</label><select class="select" name="goodstype_id"><option th:each="l:${list2}" th:value="${l.id}" th:text="${l.typename}"></option></select>
+<label class="laber1">图片</label><input class="picture" type="file" name="logoImage"/>
+<input class="submit" type="submit" value="确定"><input class="submit reset" type="reset" value="重置">
+</span>
+</form>
+</body>
+</html>

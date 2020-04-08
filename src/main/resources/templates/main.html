@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>main</title>
+<link href="../main.css" rel="stylesheet" type="text/css"/> 
+</head>
+<body>
+<ul class="main_ul">
+<li><a href="toaddGoods">添加商品</a></li>
+<li><a href="selectType">查询类型</a></li>
+<li><a href="toaddType">添加类型</a></li>
+<li><a th:href="@{/selectuser}">查看会员</a></li>
+</ul>
+<form class="seform" action="search" method="post">
+<input class="text" name="key" type="text" placeholder="请输入搜索商品的名称"/>
+<input class="sesubmit" type="submit" value="搜索">
+</form>
+<span th:if="${list.size()==0}">还未录入商品</span>
+<span th:if="${list.size()!=0}">
+<table style="table-layout:fixed;">
+<tr>
+<th>名称</th>
+<th>价格</th>
+<th>折扣价</th>
+<th>活动名称</th>
+<th>商品介绍</th>
+<th>库存</th>
+<th colspan="2">操作</th>
+</tr>
+<tr th:each="l:${list}">
+<td th:text="${l.gsname}"></td>
+<td th:text="${l.gsprice}"></td>
+<td th:text="${l.gsrprice}"></td>
+<td th:text="${l.gsactive}"></td>
+<td th:text="${l.activedetail}"></td>
+<td th:text="${l.gsstore}"></td>
+<td  class="sc"><a th:href="@{deleteAgoods(id=${l.id})}" onclick="return checkDel();">删除</a></td>
+<td  class="sc"><a th:href="@{updateselectAgoods(id=${l.id})}">更新</a></td>
+</tr>
+</table>
+<!-- <img alt="" th:src="@{images/${l.gspicture}}"> -->
+</span>
+</body>
+</html>
+<script type="text/javascript">
+function checkDel(){
+		if(window.confirm("是否删除该商品？")){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+</script>

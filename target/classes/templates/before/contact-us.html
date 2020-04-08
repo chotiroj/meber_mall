@@ -1,0 +1,430 @@
+﻿<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <!--====== Required meta tags ======-->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--====== Title ======-->
+    <title>联系我们</title>
+
+    <!--====== Bootstrap css ======-->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+
+    <!--====== Pe Icon 7 Stroke css ======-->
+    <link rel="stylesheet" href="../assets/css/Pe-icon-7-stroke.css">
+
+    <!--====== Ion Icons css ======-->
+    <link rel="stylesheet" href="../assets/css/ionicons.min.css">
+
+    <!--====== Magnific Popup css ======-->
+    <link rel="stylesheet" href="../assets/css/magnific-popup.css">
+
+    <!--====== Slick css ======-->
+    <link rel="stylesheet" href="../assets/css/slick.css">
+
+    <!--====== Animate css ======-->
+    <link rel="stylesheet" href="../assets/css/animate.min.css">
+
+    <!--====== Nice Select css ======-->
+    <link rel="stylesheet" href="../assets/css/nice-select.css">
+
+    <!--====== Default css ======-->
+    <link rel="stylesheet" href="../assets/css/default.css">
+
+    <!--====== Style css ======-->
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+
+</head>
+
+<body>
+
+    <!--====== PRELOADER  PART START ======-->
+
+    <div id="preloader">
+        <div id="loader">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+    </div>
+
+    <!--====== PRELOADER  PART ENDS ======-->
+
+    <!--====== SEARCH PART START ======-->
+
+    <div class="search-box">
+        <div class="search-header">
+            <div class="container mt-60">
+                <div class="row">
+                    <div class="col-6">
+                        <h5 class="search-title">搜索</h5> <!-- search title -->
+                    </div>
+                    <div class="col-6">
+                        <div class="search-close text-right">
+                            <button class="search-close-btn">关闭<span></span><span></span></button>
+                        </div> <!-- search close -->
+                    </div>
+                </div> <!-- row -->
+            </div> <!-- container -->
+        </div> <!-- search header -->
+        <div class="search-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="search-form">
+                            <form action="search" method="post">
+                                <input type="text" name="gsname" placeholder="请输入搜索的商品">
+                                <button><i class="pe-7s-search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div> <!-- row -->
+            </div> <!-- container -->
+        </div> <!-- search body -->
+    </div>
+
+    <!--====== SEARCH PART ENDS ======-->
+
+    <!--====== SHOPPING CART PART START ======-->
+
+   <div class="shopping-cart-wrapper">
+        <div class="shopping-cart-canvas">
+            <div class="shopping_cart" th:fragment="shopcart">
+                <div class="shopping_cart-top-bar d-flex justify-content-between">
+                    <h6>购物车</h6>
+                    <button class="shopping-cart-close">
+                        <i class="ion ion-md-add"></i>
+                    </button>
+                </div><!-- shopping cart top bar -->
+                <div class="shopping_cart-list-items mt-30" id="cartul" onmouseover="cartscroll()" onmouseout="carthidden()">
+                    <ul>
+                        <li th:each="c:${cartlist}">
+                            <div class="single-shopping-cart media">
+                                <div class="cart-image">
+                                    <img style="width:70px;height:70px;" th:src="@{'../images/'+${c.gspicture}}" alt="Cart">
+                                </div>
+                                <div class="cart-content media-body pl-15">
+                                    <h6><a href="#" th:text="${c.gsname}"></a></h6>
+                                    <span class="quality" th:text="'数量:&nbsp;&nbsp;'+${c.shopnum}"></span>
+                                    <span class="price" th:text="'¥'+${c.gsrprice}"></span>
+                                    <span class="price-close" th:text="'¥'+${c.gsrprice}"></span>
+                                    <a class="remove" href="#"><i class="fal fa-times"></i>移除</a>
+                                </div>
+                            </div> <!-- single shopping cart -->
+                        </li>
+                    </ul>
+                </div> <!-- shopping_cart list items -->
+                <div class="shopping_cart-btn">
+                    <div class="total pt-35 d-flex justify-content-between">
+                        <h5>总计:&nbsp;&nbsp;</h5>
+                        <p th:text="'¥'+${amount}"></p>
+                    </div>
+                    <div class="cart-btn pt-25">
+                        <a class="main-btn" href="#">清空购物车</a>
+                        <a class="main-btn main-btn-2" href="#">结算</a>
+                    </div>
+                </div>
+            </div> <!-- shopping_cart -->
+        </div>
+        <div class="overlay"></div>
+    </div>
+
+    <!--====== SHOPPING CART PART ENDS ======-->
+
+
+    <!--====== HEADER  PART START ======-->
+
+    <header class="header-area">
+        <div class="navigation navigation-2 navigation-page fixed-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <nav class="navbar navbar-expand-lg">
+                            <a class="navbar-brand" href="index">
+                                <img src="../assets/images/logo.png" alt="Logo">
+                            </a> <!-- Logo -->
+
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button> <!-- navbar-toggler -->
+
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul class="navbar-nav m-auto">
+                                    <li class="nav-item"><a href="index">商城首页</a></li>                           
+                                    <li class="nav-item"><a href="goodsnav">商品分类</a></li>
+                                    <li class="nav-item" th:if="${session.user!=null}"><a href="touserCenter">个人中心</a></li>
+                                    <li class="nav-item"><a class="page-scroll" href="about-us">关于我们</a></li>
+                                    <li class="nav-item"><a class="page-scroll" href="contact-us">联系我们</a></li>
+                                </ul>
+                            </div> <!-- navbar collapse -->
+                            <div class="navbar-icon d-none d-sm-block">
+                                <ul th:if="${session.user==null}">
+                                	<li class="logandregi"><a style="font-size:14px;color:#eee;line-height:17px;" href="tologin">登陆</a></li>
+                                	<li class="logandregi"><a style="font-size:14px;color:#eee;line-height:17px;" href="toregister">免费注册</a></li>
+                                    <li><a class="search-open" href="#"><i class="pe-7s-search"></i></a></li>
+                                    <li><a class="shopping-cart-open" href="#"><i class="pe-7s-cart"></i></a></li>
+                                </ul>
+                                <ul th:if="${session.user!=null}">                    
+                                	<li style="font-size:14px;color:#8FC5FF;line-height:17px;" th:each="us:${session.user}" th:text="'欢迎'+'&nbsp;&nbsp;'+${us.username}"></li>
+                                	<li><a href="exit" style="font-size:15px;">退出</a></li>
+                                	<li><a class="search-open" href="#"><i class="pe-7s-search"></i></a></li>
+                                    <li><a class="shopping-cart-open" href="#"><i class="pe-7s-cart"></i></a></li>
+                                </ul>
+                            </div>
+                        </nav> <!-- navbar -->
+                    </div>
+                </div> <!-- row -->
+            </div> <!-- container -->
+        </div> <!-- navigation -->
+    </header>
+
+    <!--====== HEADER  PART ENDS ======-->
+
+    <!--====== PAGE TITLE  PART START ======-->
+
+    <section class="page-title-area d-flex align-items-center bg_cover" style="background-image: url(../assets/images/page-title-bg.jpg)">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="page-title-item text-center">
+                        <h3 class="title">联系我们</h3>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index">首页</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">联系我们</li>
+                            </ol>
+                        </nav>
+                    </div> <!-- page title item -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- row -->
+        <div class="page-title-shape">
+            <img src="../assets/images/banner-shape.png" alt="shape">
+        </div> <!-- page title shape -->
+    </section>
+
+    <!--====== PAGE TITLE  PART ENDS ======-->
+
+    <!--====== CONTACT INFO PART START ======-->
+    
+    <section class="contact-info-area pt-35 pb-85">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <div class="contact-info-item text-center mt-30">
+                        <i class="ion ion-md-map"></i>
+                        <h6 class="title">地址</h6>
+                        <p>广东白云学院</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <div class="contact-info-item text-center icon mt-30">
+                        <i class="ion ion-md-call"></i>
+                        <h6 class="title">手机号码</h6>
+                        <p>(+86) 130-0687-5246</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <div class="contact-info-item text-center mt-30">
+                        <i class="ion ion-md-mail"></i>
+                        <h6 class="title">邮箱</h6>
+                        <p>13046101373@163.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> 
+
+    <!--====== CONTACT INFO PART ENDS ======-->
+    
+    <!--====== CONTACT INFO PART ENDS ======-->  
+       <!--  <div class="map-area">
+            <iframe src="https://ditu.google.cn/maps/embed?pb=!1m18!1m12!1m3!1d387190.2799160891!2d-74.25987584510595!3d40.69767006338158!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sbd!4v1570861327378!5m2!1sen!2sbd" width="600" height="450" style="border:0;" allowfullscreen=""></iframe>
+        </div> -->
+    <!--====== CONTACT INFO PART ENDS ======-->
+    
+    <!--====== CONTACT TOUCH PART START ======-->
+    
+    <section class="contact-touch-area pt-85 pb-90">
+        <div class="container">
+            <div class="row align-items-center">
+               <div class="col-lg-3">
+                   <div class="contact-touch-thumb d-none d-lg-block">
+                       <img src="../assets/images/contact-touch-thumb.jpg" alt="contact">
+                   </div>
+               </div>
+                <div class="col-lg-9">
+                    <div class="contact-touch-part">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="secton-title text-center">
+                                    <h5 class="title">保持联系</h5>
+                                    <p>不只是简单的文本 </p>
+                                </div>
+                            </div>
+                        </div>
+                        <form id="contact-form" action="assets/contact.php" method="post">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="input-box mt-35">
+                                        <input name="name" type="text" placeholder="姓名">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="input-box mt-35">
+                                        <input name="email" type="email" placeholder="邮箱">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="input-box mt-35 text-center">
+                                        <textarea name="message" id="#" cols="30" rows="10" placeholder="内容"></textarea>
+                                        <button type="submit">提交</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <p class="form-message"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> 
+
+    <!--====== CONTACT TOUCH PART ENDS ======-->
+    
+    <!--====== FOOTER PART START ======-->
+
+    <section class="footer-area gray-bg pt-60 pb-85">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-5">
+                    <div class="footer-item-1 mt-30">
+                        <a href="index.html"><img src="../assets/images/logo-2.png" alt="logo"></a>
+                        <span>Copyright &copy; 2019.Company name All rights reserved.<a target="_blank" href="#">Wai</a></span>
+                        <ul>
+                            <li><a href="#">品质保障</a></li>
+                            <li><a href="#">消费保障</a></li>
+                            <li><a href="#">关于我们</a></li>
+                        </ul>
+                        <div class="footer-info">
+                            <ul>
+                                <li><i class="ion ion-md-pin"></i>广东白云学院 <br> </li>
+                                <li><i class="ion ion-ios-mail"></i>13046101373@163.com</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 offset-lg-2 col-md-2 col-sm-4">
+                    <div class="footer-social mt-30">
+                        <h5 class="title">社交联系</h5>
+                        <ul>
+                            <li><a href="#">QQ</a></li>
+                            <li><a href="#">WeChat</a></li>
+                            <li><a href="#">照片墙</a></li>
+                            <li><a href="#">微博</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-5 col-sm-8">
+                    <div class="footer-item-2 mt-30">
+                        <h5 class="title">简讯</h5>
+                        <form action="#">
+                            <div class="input-box mt-25">
+                                <input type="email" placeholder="您的邮箱">
+                            </div>
+                            <div class="input-box mt-25">
+                                <button class="main-btn">提交 <i class="ion ion-ios-send"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--====== FOOTER PART ENDS ======-->
+
+    <!--====== BACK TO TOP ======-->
+    <div class="back-to-top">
+        <a href="">
+            <i class="ion ion-md-arrow-up"></i>
+        </a>
+    </div>
+    <!--====== BACK TO TOP ======-->
+
+
+    <!--====== jquery js ======-->
+    <script src="../assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="../assets/js/vendor/jquery-1.12.4.min.js"></script>
+
+    <!--====== Bootstrap js ======-->
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/popper.min.js"></script>
+
+    <!--====== Slick js ======-->
+    <script src="../assets/js/slick.min.js"></script>
+
+    <!--====== Isotope js ======-->
+    <script src="../assets/js/isotope.pkgd.min.js"></script>
+
+    <!--====== Images Loaded js ======-->
+    <script src="../assets/js/imagesloaded.pkgd.min.js"></script>
+
+    <!--====== Magnific Popup js ======-->
+    <script src="../assets/js/jquery.magnific-popup.min.js"></script>
+
+    <!--====== Nice Select js ======-->
+    <script src="../assets/js/jquery.nice-select.min.js"></script>
+
+    <!--====== Ajax Contact js ======-->
+    <script src="../assets/js/ajax-contact.js"></script>
+
+    <!--====== Main js ======-->
+    <script src="../assets/js/main.js"></script>
+	
+	 <!-- 局部刷新购物车数据 -->
+    <script type="text/javascript">
+    	$('.shopping-cart-open').click(function () {
+			$.ajax({
+				url:'selectCart',
+				type:'POST',
+				success:function(data){
+					$('.shopping_cart').html(data);
+				}
+			})
+		});
+		
+		function cartscroll() {
+			document.getElementById('cartul').style.overflowY='scroll';
+		};
+    	function carthidden() {
+			document.getElementById('cartul').style.overflowY='hidden';
+		};
+    	
+    	function addorder() {
+    		if(window.confirm("是否提交订单？")){
+    			return true;
+    		}
+    		else{
+    			return false;
+    		}
+		};
+    	function clearCart() {
+    		if(window.confirm("是否清空购物车？")){
+    			return true;
+    		}
+    		else{
+    			return false;
+    		}
+		}
+    </script>
+</body>
+
+</html>
+

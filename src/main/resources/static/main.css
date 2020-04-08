@@ -1,0 +1,90 @@
+body{
+	margin:0;
+	padding:0;
+}
+.main_ul{width:100%-50px;height:40px;background:#399AE8;margin:0;padding-left:50px;}
+.main_ul li{
+	float:left;height:40px;list-style:none;padding:0 10px;font-size:16px;line-height:40px;color:#fff;
+}
+.main_ul li a{text-decoration:none;color:#fff;}
+.main_ul li:hover{background:#03588C;}
+
+.main_form{
+	width:280px;height:350px;margin:20px 0 0 50px;
+}
+.main_form input{padding-left:5px;border:1px solid #e0e0e0;margin-bottom:5px;width:183px;height:25px;border-radius:3px;
+}
+.main_form .picture{
+	padding:0;
+	height:23px;
+	width:188px;
+}
+.laber1{
+	padding:0 10px 0 42px;
+}
+
+.laber2{
+	padding:0 10px;
+}
+
+.laber3{padding:0 10px 0 26px;}
+
+.main_form .submit{
+	font-size:16px;color:#fff;width:126px;height:35px;background:#399AE8;margin:10px 0 0 10px;border:none;border-radius:5px;
+}
+.reset{margin-left:10px;}
+.select{
+border-radius:3px;width:190px;height:25px;margin-bottom:10px;
+}
+
+table{
+	width:80%;
+	margin-left:50px;
+	border:0;
+}
+
+table td{
+	text-align:center;
+	width:12%;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	white-space:nowrap;
+}
+
+.seform{
+	margin:20px 50px;
+	height:35px;
+	width:400px;
+}
+
+.text{
+	padding-left:10px;
+	float:left;
+	height:30px;
+	width:300px;
+	border-radius:5px;
+	border:1px solid #399AE8;
+	border-top-right-radius:0;
+	border-bottom-right-radius:0;
+}
+.sesubmit{
+	font-size:16px;
+	color:#fff;
+	height:34px;
+	float:left;
+	width:80px;
+	background:#399AE8;
+	border:none;
+}
+.sc{
+	color:#399AE8;
+}
+
+.sc a{text-decoration:none;
+color:#399AE8;
+}
+
+.sc a:hover{
+	text-decoration:underline;
+	color:#399AE8;
+}
